@@ -1,0 +1,9 @@
+{
+  "name": "Alex",
+  "age": "34",
+  "teachersName": ["Stanislav", "Dmitriy"],
+  "courseInfo": {
+    "language": "Java",
+    "group": 24
+  }
+}
