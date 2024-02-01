@@ -8,9 +8,16 @@ public class CourseInfo {
     public String getLanguage() {
         return language;
     }
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
 
     public int getGroup() {
         return group;
+    }
+    public void setGroup(int group) {
+        this.group = group;
     }
 
 }
