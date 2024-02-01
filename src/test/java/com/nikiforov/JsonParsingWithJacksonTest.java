@@ -1,7 +1,7 @@
 package com.nikiforov;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,20 +20,15 @@ public class JsonParsingWithJacksonTest {
         try (InputStream is = cl.getResourceAsStream("jsonfile.json");
              Reader reader = new InputStreamReader(is)) {
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(is);
+            UserInfo userInfo = objectMapper.readValue(reader, UserInfo.class);
 
-            String name = jsonNode.get("name").asText();
-            int age = jsonNode.get("age").asInt();
-            JsonNode teachersNode = jsonNode.get("teachersName");
-            JsonNode courseInfoNode = jsonNode.get("courseInfo");
 
-            String[] teachersArray = objectMapper.treeToValue(teachersNode, String[].class);
-
-            Assertions.assertEquals("Alex", name);
-            Assertions.assertEquals(34, age);
-            Assertions.assertArrayEquals(new String[]{"Stanislav", "Dmitriy"}, teachersArray);
-            Assertions.assertEquals("Java", courseInfoNode.get("language").asText());
-            Assertions.assertEquals(24, courseInfoNode.get("group").asInt());
+            Assertions.assertEquals("Alex", userInfo.getName());
+            Assertions.assertEquals(34, userInfo.getAge());
+            Assertions.assertEquals("Stanislav", userInfo.getTeachersName()[0]);
+            Assertions.assertEquals("Dmitriy", userInfo.getTeachersName()[1]);
+            Assertions.assertEquals("Java", userInfo.getCourseInfo().getLanguage());
+            Assertions.assertEquals(24, userInfo.getCourseInfo().getGroup());
         }
     }
 }
